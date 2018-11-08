@@ -1,0 +1,28 @@
+{
+  "name": "bamazon",
+  "version": "1.0.0",
+  "description": "Backend Amazon emulator made with MySQL",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo Error: no test specified && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ericremoroza/bamazon.git"
+  },
+  "keywords": [
+    "CLI",
+    "Amazon",
+    "MySQL"
+  ],
+  "author": "Eric Remoroza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ericremoroza/bamazon/issues"
+  },
+  "homepage": "https://github.com/ericremoroza/bamazon#readme",
+  "dependencies": {
+    "inquirer": "^6.2.0",
+    "mysql": "^2.16.0"
+  }
+}
