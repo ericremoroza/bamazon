@@ -21,4 +21,3 @@ VALUES ("Queen Collection", "Music", 99.99, 10),
     ("Deadpool or no Deadpool: The Board Game", "Toys and Games", 10.23, 76),
     ("Stills", "Books", 9.95, 100);
     
-SELECT * FROM bamazon.products;
