@@ -32,6 +32,7 @@ function start() {
             }
         ]).then(function(userInput){
             var item = userInput.item_id;
+            var quantity = userInput.stock_quantity;
             console.log("Thank you! Your order of " + item + " has been shipped!");
         })
 };
