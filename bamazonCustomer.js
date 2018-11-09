@@ -47,40 +47,45 @@ function start() {
                 validate: validateInput,
                 filter: Number
             }
-        ]).then(function (userInput) {
-            var item = userInput.item_id;
-            var quantity = userInput.stock_quantity;
-            var queryStr = 'SELECT * FROM products WHERE ?';
+        ]).then(function () {
 
-            connection.query(queryStr, { item_id: item }, function (err, data) {
-                if (err) throw err;
-
-                //item id must not equal zero
-                if (data.length === 0) {
-                    console.log("What else would you like to buy?");
-                    displayInventory();
-                } else {
-                    var productInfo = data[0];
-                    if (quantity <= productInfo.stock_quantity) {
-                        console.log("Hooray! We have your requested item in our inventory!! Placing order!");
-                        //subtract stock quantity
-                        var newQueryStr = "UPDATE products SET stock_quantity = " + (productInfo.stock_quantity - quantity) + "WHERE item_id = " + item;
-
-                        connection.query(newQueryStr, function (err, data) {
-                            if (err) throw err;
-
-                            console.log("Order placed! You will be billed $" + productInfo.price * quantity);
-                            console.log("Thanks for shopping with Bamazon! Please come again!");
-                            connection.end();
-                        })
-                    } else {
-                        console.log("Not enough product in stock.");
-                    }
-                }
-            })
+            questionsToAsk();
         })
 };
 
+function questionsToAsk(userInput) {
+    var userInput = "";
+    var item = userInput.item_id;
+    var quantity = userInput.stock_quantity;
+    var queryStr = 'SELECT * FROM products WHERE ?';
+
+    connection.query(queryStr, { item_id: item }, function (err, data) {
+        if (err) throw err;
+
+        //item id must not equal zero
+        if (data.length === 0) {
+            //fix console log, change to inquire
+            console.log("What else would you like to buy?");
+            var productInfo = "";
+            if (quantity <= productInfo) {
+                console.log("Hooray! We have your requested item in our inventory!! Placing order!");
+                //subtract stock quantity
+                var newQueryStr = "UPDATE products SET stock_quantity = " + (productInfo.stock_quantity - quantity) + "WHERE item_id = " + item;
+
+                connection.query(newQueryStr, function (err, data) {
+                    if (err) throw err;
+
+                    console.log("Order placed! You will be billed $" + productInfo.price * quantity);
+                    console.log("Thanks for shopping with Bamazon! Please come again!");
+                    connection.end();
+                })
+            } else {
+                console.log("Not enough product in stock.");
+                displayInventory();
+            }
+        } 
+    });
+}
 function displayInventory() {
     // Construct the db query string
     queryStr = 'SELECT * FROM products';
@@ -107,9 +112,5 @@ function displayInventory() {
         //Prompt the user for item/quantity they would like to purchase
         start();
     })
-}
-
-function activate() {
-    start();
 }
 
